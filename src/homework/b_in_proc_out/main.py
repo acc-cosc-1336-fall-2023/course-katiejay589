@@ -1,5 +1,5 @@
 import output
 
-result = output.get_number(26)
+result = output.multiply_numbers(6, 6)
 
 print(result)
