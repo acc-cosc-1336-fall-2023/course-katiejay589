@@ -1,37 +1,31 @@
-#This code will return the p-distance between two strings
-def get_p_distance(list1, list2):
-    p_distance = 0
-    if len(list1) != len(list2):
-        return "Invalid input. lists must be of equal length"
+# showcases adding and removing from dictionaries
+
+inventory_dictionary = {}
+
+def add_inventory(widget_name, quantity, inventory_dictionary):
+    if widget_name in inventory_dictionary:
+        inventory_dictionary[widget_name] = inventory_dictionary[widget_name] + quantity
     else:
-        for position in range(len(list1)):
-            if list1[position] != list2[position]: 
-                p_distance += 1
-    return p_distance
+        inventory_dictionary[widget_name] = quantity
 
-def get_p_distance_matrix(list1):
-    matrix = []
-    i = 0
-    j = 0
-    for i in range (0, (len(list1))):
-        l1 = []
-        for j in range (0, (len(list1))):
-            distance = get_p_distance(list1[i], list1[j])
-            fas = distance/10
-            l1.append(fas)
-        i += 1
-        matrix.append(l1)
-    return matrix
-
+def remove_inventory_widget(widget_name, inventory_dictionary):
+    if widget_name in inventory_dictionary:
+        del inventory_dictionary[widget_name]
+        return "Record Deleted"
+    else:
+        return "Item not Found"
+    
 def display_menu():
-    print("1-Get p distance matrix")
-    print("2-Exit")
+    print("inventory Menu:")
+    print("1- Add or Update Item")
+    print("2- Delete Item")
+    print("3- Exit")
 
 def run_menu():
     display_menu()
-    option = str(input("Select option: 1 or 2 "))
-    while (option != "1" and option != "2"):
-        print(str(input("Invalid Option. Please Enter 1 or 2: ")))
+    option = str(input("Select an option: 1, 2, or 3: "))
+    while (option != "1" and option != "2" and option != "3"):
+        print(str(input("Invalid Option. Please Enter 1, 2, or 3: ")))
     handle_menu_option(option)
 
 def handle_menu_option(option):
@@ -39,20 +33,27 @@ def handle_menu_option(option):
         option_1()
     if option == "2":
         option_2()
+    if option == "3":
+        option_3()
 
 def option_1():
-    dna_list = []
-    n = int(input("How many DNA strings: "))
-    for i in range(n):
-        string = input(f"DNA String {i + 1}: ")
-        total_strings = (list(string))
-        dna_list.append(total_strings)
+    num = int(input("How many widgets would you like to add or update?"))
 
-    matrix = get_p_distance_matrix(dna_list)
-    print(matrix)
+    for i in range(num):
+        widget_name = str(input("enter a key for your item: "))
+        quantity = int(input("Enter a quantity for your item: "))
+        add_inventory(widget_name, quantity, inventory_dictionary)
+    print(inventory_dictionary)
     try_again_1()
 
 def option_2():
+    widget_name = str(input("Please enter the item you'd like to delete: "))
+    result = remove_inventory_widget(widget_name, inventory_dictionary)
+    print(result)
+    print(inventory_dictionary)
+    try_again_1()
+
+def option_3():
     while True:
         exit = input("Are you sure you would like to exit? Type yes or no: ")
         if exit == "yes" or exit == "Yes":
@@ -60,18 +61,23 @@ def option_2():
             break
         elif exit == "no" or exit == "No":
             run_menu()
+            break
         else:
             print("please Enter yes or no:")
 
-
 def try_again_1():
-    while True:
-        x = str(input("Type yes to try again, or no to exit: "))
-        if x == "yes" or x == "Yes":
-            option_1()
+     while True:
+        x = str(input("Type menu to return to menu, or end to exit: "))
+        if x == "menu" or x == "Menu":
+            run_menu()
             break
-        elif x == "no" or x == "No":
-            option_2()
+        elif x == "end" or x == "End":
+            option_3()
             break
         else:
-            print("Please enter yes or no: ")
+            print("Please type menu to continue or end to exit: ")
+
+
+
+
+
