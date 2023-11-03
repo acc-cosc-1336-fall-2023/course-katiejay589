@@ -18,3 +18,28 @@ class Test_Config(unittest.TestCase):
         remove_inventory_widget('widget1', inventory_dictionary)
         self.assertEqual(inventory_dictionary, {'widget2':10})
         self.assertEqual(len(inventory_dictionary), 1)
+
+    def test_set_intersection(self):
+        baseball = set(['Jodi', 'Carmen', 'Aida', 'Alicia'])
+        basketball = set(['Eva', 'Carmen', 'Alicia', 'Sarah'])
+        self.assertEqual(baseball.intersection(basketball), set(['Carmen', 'Alicia']))
+    
+    def test_set_union(self):
+        baseball = set(['Jodi', 'Carmen', 'Aida', 'Alicia'])
+        basketball = set(['Eva', 'Carmen', 'Alicia', 'Sarah'])
+        self.assertEqual(baseball.union(basketball), set(['Jodi', 'Carmen', 'Aida', 'Alicia', 'Eva', 'Sarah']))
+
+    def test_set_difference_only_baseball(self):
+        baseball = set(['Jodi', 'Carmen', 'Aida', 'Alicia'])
+        basketball = set(['Eva', 'Carmen', 'Alicia', 'Sarah'])
+        self.assertEqual(baseball.difference(basketball), set(['Jodi', 'Aida']))
+
+    def test_set_difference_only_basketball(self):
+        baseball = set(['Jodi', 'Carmen', 'Aida', 'Alicia'])
+        basketball = set(['Eva', 'Carmen', 'Alicia', 'Sarah'])
+        self.assertEqual(basketball.difference(baseball), set(['Eva', 'Sarah']))
+
+    def test_symmetric_difference(self):
+        baseball = set(['Jodi', 'Carmen', 'Aida', 'Alicia'])
+        basketball = set(['Eva', 'Carmen', 'Alicia', 'Sarah'])
+        self.assertEqual(baseball.symmetric_difference(basketball), set(['Jodi', 'Aida', 'Eva', 'Sarah']))
